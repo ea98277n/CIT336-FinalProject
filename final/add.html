@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Add New Coin Form</title>
+<style>
+body {
+  background-color: #232323;
+  font-family: Verdana, sans-serif;
+  color: #FFF;
+}
+
+h1 {
+  color: white;
+} 
+</style>
+</head>
+<body>
+<center>
+  <!-- Data form displayed on page -->
+<h1>Add a new coin</h1>
+<form method="post">
+    <p>
+        <label for="coinAbbreviation">Abbreviation:</label>
+        <input type="text" name="coinAbbreviation" id="coinAbbreviation">
+    </p>
+    <p>
+        <label for="coinName">Name:</label>
+        <input type="text" name="coinName" id="coinName">
+    </p>
+    <p>
+        <label for="coinLogo">Logo URL (local only):</label>
+        <input type="text" name="coinLogo" id="coinLogo">
+    </p>
+    <p>
+        <label for="coinInfo">Info:</label>
+        <input type="text" name="coinInfo" id="coinInfo">
+    </p>
+    <p>
+        <label for="coinWebsite">Website URL:</label>
+        <input type="text" name="coinWebsite" id="coinWebsite">
+    </p>
+    <input type="submit" value="Submit" onclick="addtoDB()">
+</form>
+<p id=”submitted></p>
+<p><a href="index.php">View Library of Coins</a></p>
+</center>
+<!-- Begin script that submits the data -->
+<script>
+function addtoDB() {
+  var xhttp; 
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+        document.getElementById("submitted").innerHTML = "form submitted";
+    }
+  };
+  var coinAbbreviation = document.getElementById('coinAbbreviation').value;
+  var coinName = document.getElementById('coinName').value;
+  var coinLogo = document.getElementById('coinLogo').value;
+  var coinInfo = document.getElementById('coinInfo').value;
+  var coinWebsite = document.getElementById('coinWebsite').value;
+   var queryString = "?coinAbbreviation=" + coinAbbreviation +  "&coinName=" + coinName + "&coinLogo=" + coinLogo + "&coinInfo=" + coinInfo + "&coinWebsite=" + coinWebsite;
+   console.log(queryString);
+   xhttp.open("GET", "insert.php" + queryString, true);
+   xhttp.send(null); 
+
+}
+</script>
